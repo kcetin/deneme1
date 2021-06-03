@@ -4,21 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../flutter_flow/flutter_flow_util.dart';
 
-import 'schema/aydin_kadin_dogum_record.dart';
 import 'schema/users_record.dart';
 import 'schema/serializers.dart';
 
 export 'package:cloud_firestore/cloud_firestore.dart';
-export 'schema/aydin_kadin_dogum_record.dart';
 export 'schema/users_record.dart';
-
-Stream<List<AydinKadinDogumRecord>> queryAydinKadinDogumRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(
-        AydinKadinDogumRecord.collection, AydinKadinDogumRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 Stream<List<UsersRecord>> queryUsersRecord(
         {Query Function(Query) queryBuilder,
@@ -44,13 +34,13 @@ Stream<List<T>> queryCollection<T>(
 
 // Creates a Firestore record representing the logged in user if it doesn't yet exist
 Future maybeCreateUser(User user) async {
-  final userRecord = AydinKadinDogumRecord.collection.doc(user.uid);
+  final userRecord = UsersRecord.collection.doc(user.uid);
   final userExists = await userRecord.get().then((u) => u.exists);
   if (userExists) {
     return;
   }
 
-  final userData = createAydinKadinDogumRecordData(
+  final userData = createUsersRecordData(
     email: user.email,
     displayName: user.displayName,
     photoUrl: user.photoURL,

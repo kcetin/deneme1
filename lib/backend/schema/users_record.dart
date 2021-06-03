@@ -15,6 +15,14 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get email;
 
   @nullable
+  @BuiltValueField(wireName: 'display_name')
+  String get displayName;
+
+  @nullable
+  @BuiltValueField(wireName: 'photo_url')
+  String get photoUrl;
+
+  @nullable
   String get uid;
 
   @nullable
@@ -27,6 +35,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
     ..email = ''
+    ..displayName = ''
+    ..photoUrl = ''
     ..uid = '';
 
   static CollectionReference get collection =>
@@ -43,6 +53,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
 Map<String, dynamic> createUsersRecordData({
   String email,
+  String displayName,
+  String photoUrl,
   String uid,
   Timestamp createdTime,
 }) =>
@@ -50,12 +62,16 @@ Map<String, dynamic> createUsersRecordData({
         UsersRecord.serializer,
         UsersRecord((u) => u
           ..email = email
+          ..displayName = displayName
+          ..photoUrl = photoUrl
           ..uid = uid
           ..createdTime = createdTime));
 
 UsersRecord get dummyUsersRecord {
   final builder = UsersRecordBuilder()
     ..email = dummyString
+    ..displayName = dummyString
+    ..photoUrl = dummyImagePath
     ..uid = dummyString
     ..createdTime = dummyTimestamp;
   return builder.build();
