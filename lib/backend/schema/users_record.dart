@@ -12,10 +12,6 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   static Serializer<UsersRecord> get serializer => _$usersRecordSerializer;
 
   @nullable
-  @BuiltValueField(wireName: 'display_name')
-  String get displayName;
-
-  @nullable
   @BuiltValueField(wireName: 'photo_url')
   String get photoUrl;
 
@@ -27,22 +23,26 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   Timestamp get createdTime;
 
   @nullable
-  @BuiltValueField(wireName: 'phone_number')
-  int get phoneNumber;
+  String get email;
 
   @nullable
-  String get email;
+  @BuiltValueField(wireName: 'phone_number')
+  String get phoneNumber;
+
+  @nullable
+  @BuiltValueField(wireName: 'display_name')
+  String get displayName;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
-    ..displayName = ''
     ..photoUrl = ''
     ..uid = ''
-    ..phoneNumber = 0
-    ..email = '';
+    ..email = ''
+    ..phoneNumber = ''
+    ..displayName = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -57,31 +57,31 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 }
 
 Map<String, dynamic> createUsersRecordData({
-  String displayName,
   String photoUrl,
   String uid,
   Timestamp createdTime,
-  int phoneNumber,
   String email,
+  String phoneNumber,
+  String displayName,
 }) =>
     serializers.serializeWith(
         UsersRecord.serializer,
         UsersRecord((u) => u
-          ..displayName = displayName
           ..photoUrl = photoUrl
           ..uid = uid
           ..createdTime = createdTime
+          ..email = email
           ..phoneNumber = phoneNumber
-          ..email = email));
+          ..displayName = displayName));
 
 UsersRecord get dummyUsersRecord {
   final builder = UsersRecordBuilder()
-    ..displayName = dummyString
     ..photoUrl = dummyImagePath
     ..uid = dummyString
     ..createdTime = dummyTimestamp
-    ..phoneNumber = dummyInteger
-    ..email = dummyString;
+    ..email = dummyString
+    ..phoneNumber = dummyString
+    ..displayName = dummyString;
   return builder.build();
 }
 
