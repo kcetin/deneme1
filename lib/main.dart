@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'auth/firebase_user_provider.dart';
 import 'package:hastane/phone_sign_page/phone_sign_page_widget.dart';
-import 'package:hastane/home_page/home_page_widget.dart';
+import 'package:hastane/home/home_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
               ),
             )
           : currentUser.loggedIn
-              ? HomePageWidget()
+              ? HomeWidget()
               : PhoneSignPageWidget(),
     );
   }
