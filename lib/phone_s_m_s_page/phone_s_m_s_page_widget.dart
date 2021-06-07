@@ -146,10 +146,14 @@ class _PhoneSMSPageWidgetState extends State<PhoneSMSPageWidget> {
                                       );
                                       return;
                                     }
-                                    await verifySmsCode(
+                                    final phoneVerifiedUser =
+                                        await verifySmsCode(
                                       context: context,
                                       smsCode: emailTextController.text,
                                     );
+                                    if (phoneVerifiedUser == null) {
+                                      return;
+                                    }
                                     await Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
