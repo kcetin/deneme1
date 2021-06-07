@@ -63,7 +63,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               stream: queryAydinKadinDogumRecord(
                                 queryBuilder: (aydinKadinDogumRecord) =>
                                     aydinKadinDogumRecord.where('isim',
-                                        isEqualTo: textController.text),
+                                        isLessThanOrEqualTo: '\$.isim'),
                                 singleRecord: true,
                               ),
                               builder: (context, snapshot) {
