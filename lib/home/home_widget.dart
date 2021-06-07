@@ -1,6 +1,8 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -91,10 +93,25 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     iconAydinKadinDogumRecordList.first;
                                 return Padding(
                                   padding: EdgeInsets.fromLTRB(4, 0, 4, 0),
-                                  child: Icon(
-                                    Icons.search_rounded,
-                                    color: Color(0xFF95A1AC),
-                                    size: 24,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      final isim =
+                                          iconAydinKadinDogumRecord.isim;
+
+                                      final aydinKadinDogumRecordData =
+                                          createAydinKadinDogumRecordData(
+                                        isim: isim,
+                                      );
+
+                                      await AydinKadinDogumRecord.collection
+                                          .doc()
+                                          .set(aydinKadinDogumRecordData);
+                                    },
+                                    child: Icon(
+                                      Icons.search_rounded,
+                                      color: Color(0xFF95A1AC),
+                                      size: 24,
+                                    ),
                                   ),
                                 );
                               },
